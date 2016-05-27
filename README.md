@@ -1,7 +1,7 @@
 # EBA Setup Scripts
 A set of shell scripts to set up student Ubuntu Linux clients at EBA
 
-I developed these BASH scripts to improve the process of deploying Ubuntu Linux clients at my school.
+I developed these BASH scripts to improve the process of deploying Ubuntu Linux clients at my school. Some of these scripts pull from Dropbox. I plan to rework them to instead pull from this GitHub repo. 
 
 # eba-setup
 This script sets up a fresh install of Edubuntu 12.04/14.04. The admin account is expected to be `eba`
