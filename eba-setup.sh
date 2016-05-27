@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script sets up a fresh install of Edubuntu 12.04 for East Bronx Academy for the Future
+# This script sets up a fresh install of Edubuntu 12.04/14.04 for East Bronx Academy for the Future
 # The admin account is expected to be eba
 # by Kevin McCormack
 # -----------------
@@ -55,7 +55,7 @@ kernel_arch=$(uname -i);
 kernel_vers=$(uname -r);
 model=$(cat "/sys/class/dmi/id/product_name | sed -e 's/^[ \t]*//'");
 if [  "$(cat /sys/class/dmi/id/chassis_serial | sed -e 's/^[ \t]*//')" != "" ]; then
-	serial_number=$(cat /sys/class/dmi/id/chassis_serial);	
+	serial_number=$(cat /sys/class/dmi/id/chassis_serial);
 elif [ "$(cat /sys/class/dmi/id/board_serial | sed -e 's/^[ \t]*//')" != "" ]; then
 	serial_number=$(cat /sys/class/dmi/id/board_serial);
 elif [ "$(cat /sys/class/dmi/id/product_serial | sed -e 's/^[ \t]*//')" != "" ]; then
@@ -112,7 +112,7 @@ printf "Checking environment and proxy settings..."
 export http_proxy=http://filtr.nycboe.org:8002/
 #dbus-launch --exit-with-session gsettings set org.gnome.system.proxy mode "auto";
 #dbus-launch --exit-with-session gsettings set org.gnome.system.proxy autoconfig-url "http://proxy.nycboe.org/proxy.pac";
-if grep -q "http_proxy" "/etc/environment"; then 
+if grep -q "http_proxy" "/etc/environment"; then
 	colorprintf green "verified.\n"
 else
 	# add http_proxy to last line of /etc/environment file
@@ -172,13 +172,13 @@ sudo sed -i "s/enabled=1/enabled=0/g" /etc/default/apport
 
 # Disable prompting for upgrading to new versions of Ubuntu
 sudo sed -i '17s/.*/Prompt=never/' /etc/update-manager/release-upgrades
-if [ -e "/var/lib/update-notifier/release-upgrade-available" ]; then 
+if [ -e "/var/lib/update-notifier/release-upgrade-available" ]; then
 	sudo rm /var/lib/update-notifier/release-upgrade-available
 fi
 
 # Set update schedule for security updates and autoclean
 printf "Checking update and autoclean schedules..."
-if grep -q "APT::Periodic::Unattended-Upgrade \"1\";" "/etc/apt/apt.conf.d/10periodic"; then 
+if grep -q "APT::Periodic::Unattended-Upgrade \"1\";" "/etc/apt/apt.conf.d/10periodic"; then
 	colorprintf green "verified.\n"
 else
 	sudo sed -i 's/Update-Package-Lists ".*";/Update-Package-Lists "1";/' /etc/apt/apt.conf.d/10periodic
@@ -191,7 +191,7 @@ fi
 
 # Check and remove Ubuntu One
 printf "Checking for Ubuntu One..."
-if type ubuntuone-installer &>/dev/null; 
+if type ubuntuone-installer &>/dev/null;
 then
 	printf "removing..."
 	killall ubuntuone-login ubuntuone-preferences ubuntuone-syncdaemon
@@ -223,7 +223,7 @@ else
 	#sudo useradd -m -G nopasswdlogin -s /bin/bash -p pupil pupil
 	#sudo adduser --ingroup nopasswdlogin pupil;
 	sudo adduser --disabled-password --ingroup nopasswdlogin --gecos "Pupil" pupil;
-	printf "pupil:pupil" | sudo chpasswd; 
+	printf "pupil:pupil" | sudo chpasswd;
 	sudo su pupil -c 'mkdir /home/pupil/Desktop'
 	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=/home/eba/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
 	sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
@@ -265,7 +265,7 @@ sudo apt-get -qq remove deja-dup indicator-messages empathy gwibber steam thunde
 if [ "$desktop_env" = "MATE" ]; then
 	sudo apt-get -qq remove hexchat
 elif [ "$desktop_env" = "Unity" ]; then
-	sudo apt-get -qq remove landscape-* webbrowser-app unity-control-center-signon 
+	sudo apt-get -qq remove landscape-* webbrowser-app unity-control-center-signon
 fi
 colorprintf green "done.\n"
 
@@ -292,7 +292,7 @@ fi
 # Download and install BleachBit 1.6 if Ubuntu 12.04
 if [ "$distro_vers" = "12.04" ]; then
 	printf "Checking Bleachbit..."
-	if [ "$(bleachbit --version 2>/dev/null | grep -c 'version 1.6')" = "0" ]; then 
+	if [ "$(bleachbit --version 2>/dev/null | grep -c 'version 1.6')" = "0" ]; then
 		colorprintf blue "downloading...\n"
 		wget -P ~/Downloads http://katana.oooninja.com/bleachbit/sf/bleachbit_1.6_all_ubuntu1204.deb
 		colorprintf blue "installing...\n"

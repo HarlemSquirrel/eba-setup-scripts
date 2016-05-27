@@ -1,4 +1,7 @@
 #!/bin/bash
+# This script setups up loaner devices 
+# by allowing all users to connect to WiFi and
+# creating desktop shortcuts to control the proxy settings
 
 printf "Starting loaner setup... \n"
 
@@ -22,4 +25,3 @@ printf "commenting out environment proxy settings..."
 sudo sed -i "s/http_proxy/#http_proxy/g" /etc/environment
 
 printf "done! \n"
-

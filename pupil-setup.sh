@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Last updated 2015-05-12 13:10:05      
-# Sets up and cleans up some things for the pupil user for Edubuntu 12.04 for East Bronx Academy for the Future
+# Last updated 2015-05-12 13:10:05
+# Sets up and cleans up some things for the pupil user for Edubuntu 12.04/14.04 for East Bronx Academy for the Future
 # by Kevin McCormack
 
 
@@ -30,7 +30,7 @@ colorprintf () {
 	printf "$2";
 	tput sgr0
 }
-		
+
 
 
 
@@ -54,7 +54,7 @@ fi
 
 # 	---- Command sequence starts here ----
 # ---------------------------------------------------
-# Set bash 
+# Set bash
 #set -o errexit		# errexit: exit the script if any statement returns a non-true return value
 set -o errtrace		# ERR trap is inherited by shell functions
 set -o pipefail  	# trace ERR through pipes
@@ -90,7 +90,7 @@ case $desktop_env in
 		sed -i 's/<number>.*<\/number>/<number>1<\/number>/g' ~/.config/openbox/*rc.xml;
 		cp /usr/share/applications/{firefox.desktop,google-chrome.desktop,libreoffice-startcenter.desktop} ~/Desktop/;
 		colorprintf green "done.\n";;
-	"MATE") 
+	"MATE")
 		printf "Setting up MATE..."
 		# Set workspaces to 1
 		dbus-launch --exit-with-session gsettings set org.mate.Marco.general num-workspaces 1;
@@ -110,9 +110,9 @@ case $desktop_env in
 		unzip -u -qq ~/.pupil-setup-files/menus.zip -d ~/.config
 		#rm ~/desktop-directories.zip ~/menus.zip
 		colorprintf green "done.\n";;
-	"Unity") 
+	"Unity")
 		printf "Setting up Unity...";
-		
+
 		if [ "$distro_vers" = "14.04" ]; then
 			# Do not display keyboard indicator
 			dbus-launch --exit-with-session gsettings set com.canonical.indicator.keyboard visible false;
@@ -146,7 +146,7 @@ case $desktop_env in
 		# Set executable files to run on double click
 		gsettings set org.gnome.nautilus.preferences executable-text-activation 'ask';
 		colorprintf green "done.\n";;
-	*) 
+	*)
 		colorprintf orange "The elves don't know what desktop this is!\n";;
 esac
 
@@ -186,7 +186,7 @@ fi
 if [ -e ~/.mozilla/firefox/*.default/ ]; then
 	rm -rf ~/.mozilla/firefox/*.default/*
 else
-	DISPLAY=:0 firefox & sleep 4 
+	DISPLAY=:0 firefox & sleep 4
 	killall firefox
 fi
 #rm ~/bookmarks.html* ~/prefs.js* &>/dev/null;
@@ -227,7 +227,7 @@ colorprintf green "done.\n"
 printf "Disabling some startup apps for pupil..."
 mkdir -p ~/.config/autostart && printf "created directory...."
 
-if [ -e ~/.config/autostart/bleachbit.desktop ]; then 
+if [ -e ~/.config/autostart/bleachbit.desktop ]; then
 	rm ~/.config/autostart/bleachbit.desktop
 fi
 
@@ -252,7 +252,7 @@ if [ -e /etc/xdg/autostart/update-notifier.desktop ]; then
 fi
 
 if grep -qr "X-GNOME-Autostart-enabled" ~/.config/autostart/*.desktop;
-then 
+then
 	sed -i "s/X-GNOME-Autostart-enabled=true/X-GNOME-Autostart-enabled=false/g" ~/.config/autostart/*.desktop;
 else
 	echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/*.desktop;
@@ -305,4 +305,3 @@ runtime_secs=$(($SECONDS % 60))
 DISPLAY=:0 notify-send "pupil-setup finished in $runtime_mins min $runtime_secs sec!"
 colorprintf green "The elves finished setting up pupil in $runtime_mins min $runtime_secs sec! \u263a \n"
 exit
-
