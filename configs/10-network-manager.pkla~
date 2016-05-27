@@ -1,0 +1,7 @@
+[Require admin password]
+Identity=unix-user:pupil
+Action=org.freedesktop.NetworkManager.settings.*;
+ResultAny=no
+ResultInactive=no
+ResultActive=auth_admin
+

@@ -1,0 +1,6 @@
+[Require admin password to change network settings like connecting to WiFi networks]
+Identity=unix-user:pupil
+Action=org.freedesktop.NetworkManager.settings.*;
+ResultAny=no
+ResultInactive=no
+ResultActive=auth_admin_keep
