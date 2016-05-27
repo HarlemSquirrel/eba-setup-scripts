@@ -1,5 +1,6 @@
 # EBA Setup Scripts
 A set of shell scripts to set up student Ubuntu Linux clients at EBA.
+
 These scripts can be combined with my [EBA Unattended Ubuntu Install](https://github.com/HarlemSquirrel/eba-unattended-ubuntu-install).
 
 I developed these BASH scripts to improve the process of deploying Ubuntu Linux clients at my school. Some of these scripts pull from Dropbox. I plan to rework them to instead pull from this GitHub repo.
