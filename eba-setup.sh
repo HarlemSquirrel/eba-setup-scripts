@@ -122,8 +122,9 @@ fi
 
 # Set local policy for modifying network settings
 printf "Setting local network policies..."
-wget -N -q -P ~ https://www.dropbox.com/s/ooxd642izs1px68/10-network-manager.pkla
-sudo cp ~/10-network-manager.pkla /etc/polkit-1/localauthority/50-local.d/
+#wget -N -q -P ~ https://www.dropbox.com/s/ooxd642izs1px68/10-network-manager.pkla
+#sudo cp ~/10-network-manager.pkla /etc/polkit-1/localauthority/50-local.d/
+sudo cp ~/eba-setup-scripts/10-network-manager.pkla /etc/polkit-1/localauthority/50-local.d/
 colorprintf green "done.\n"
 
 # Set swappiness

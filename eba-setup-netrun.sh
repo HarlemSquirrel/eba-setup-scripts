@@ -25,21 +25,35 @@ colorprintf () {
 if [ "$1" != "no-wget" ]; then
 	printf blue "Downloading scripts... \n"
 	export http_proxy=http://filtr.nycboe.org:8002/
-	wget -N -P ~ https://www.dropbox.com/s/hxjxhnic6qtz7zz/eba-setup-netrun.sh;
-	wget -N -P ~ https://www.dropbox.com/s/4waghtjp6tc30fw/set-hostname.sh;
-	wget -N -P ~ https://www.dropbox.com/s/gzi4g7fwe42aj34/pupil-setup.sh;
-	wget -N -P ~ https://www.dropbox.com/s/frpjsq28q0354sh/ProxyEBA.sh
-	wget -N -P ~ https://www.dropbox.com/s/vy3g26umr74ciub/loaner-setup.sh;
+	if ! hash git 2>/dev/null; then
+		sudo apt install git;
+	fi
+
+	# git pull or clone scripts
+	if [[ -e ~/eba-setup-scripts ]]; then
+		cd ~/eba-setup-scripts && git pull
+	else
+		git clone https://github.com/HarlemSquirrel/eba-setup-scripts.git ~/eba-setup-scripts
+	fi
+
+	#wget -N -P ~ https://www.dropbox.com/s/hxjxhnic6qtz7zz/eba-setup-netrun.sh;
+	#wget -N -P ~ https://www.dropbox.com/s/4waghtjp6tc30fw/set-hostname.sh;
+	#wget -N -P ~ https://www.dropbox.com/s/gzi4g7fwe42aj34/pupil-setup.sh;
+	#wget -N -P ~ https://www.dropbox.com/s/frpjsq28q0354sh/ProxyEBA.sh
+	#wget -N -P ~ https://www.dropbox.com/s/vy3g26umr74ciub/loaner-setup.sh;
+	
 	colorprintf green "done. \n"
 fi
-chmod +x ~/pupil-setup.sh
+#chmod +x ~/pupil-setup.sh
+chmod +x ~/eba-setup-scripts/pupil-setup.sh
 
 
 ### Set proxy settings to at EBA
-sudo bash ~/ProxyEBA.sh
+#sudo bash ~/ProxyEBA.sh
+sudo bash ~/eba-setup-scripts/ProxyEBA.sh
 
 
-#if [ $? -ne 0 ]; then 
+#if [ $? -ne 0 ]; then
 #	colorprintf red "No go, buddy.\n"
 #	exit 1;
 #else
@@ -89,6 +103,7 @@ fi
 
 ### Setup LanSchool
 # Download and install LanSchool student
+<<LANSCHOOL
 if [ "$install_LS" == "y" ]; then
 	printf "starting LanSchool setup...\n"
 	LS_channel=0;
@@ -107,7 +122,7 @@ if [ "$install_LS" == "y" ]; then
 	#echo "NoDisplay=true" | sudo tee -a /etc/xdg/autostart/studentwnd.desktop;
 	colorprintf blue "hidden from the startup menu.\n"
 fi
-
+LANSCHOOL
 
 ### eba-setup
 eba_setup_errors=0
@@ -116,10 +131,11 @@ if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
 		wget -N -P ~ https://www.dropbox.com/s/ob66mndq6ogwdoo/eba-setup.sh;
 	fi
 	printf "starting eba-setup...\n"
-	bash ~/eba-setup.sh
+	#bash ~/eba-setup.sh
+	bash ~/eba-setup-scripts/eba-setup.sh
 	eba_setup_errors=$?
 	if [ $eba_setup_errors -ne 0 ];
-	then 
+	then
 		colorprintf red "\n \t eba-setup.sh had $eba_setup_errors error(s)! \n"
 	fi
 	rm eba-setup.sh*
@@ -131,7 +147,8 @@ pupil_setup_errors=0
 if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
 	chmod +x ~/pupil-setup.sh
 	printf "\n  starting pupil-setup...\n"
-	sudo -H -u pupil bash ~/pupil-setup.sh
+	#sudo -H -u pupil bash ~/pupil-setup.sh
+	sudo -H -u pupil bash ~/eba-setup-scripts/pupil-setup.sh
 	#sudo su pupil -c "rm -r ~/.mozilla/firefox/*.default && DISPLAY=:0 firefox & sleep 3 && ./pupil-setup.sh"
 	pupil_setup_errors=$?
 	if [ $pupil_setup_errors -ne 0 ]; then
@@ -143,7 +160,8 @@ fi
 ### Loaner setup
 if [ "$set_as_loaner" = "y" -o "$set_as_loaner" = "Y" ]; then
 	colorprintf blue "Setting up this machine as a loaner..."
-	bash ~/loaner-setup.sh;
+	#bash ~/loaner-setup.sh;
+	bash ~/eba-setup-scripts/loaner-setup.sh
 	colorprintf green "done. \n";
 fi
 
@@ -169,7 +187,8 @@ fi
 
 ### Run set-hostname script
 set_hostname_errors=0
-sudo bash ~/set-hostname.sh $desired_new_hostname;
+#sudo bash ~/set-hostname.sh $desired_new_hostname;
+sudo bash ~/eba-setup-scripts/set-hostname.sh $desired_new_hostname;
 set_hostname_errors=$?;
 if [ $set_hostname_errors -ne 0 ]; then
 	colorprintf red "\n \t set-hostname had $set_hostname_errors error(s)! \n"
@@ -199,4 +218,3 @@ case $exit_option in
 	*)
 		exit;;
 esac
-

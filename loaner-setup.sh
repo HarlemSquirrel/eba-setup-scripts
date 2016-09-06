@@ -1,14 +1,14 @@
 #!/bin/bash
-# This script setups up loaner devices 
+# This script setups up loaner devices
 # by allowing all users to connect to WiFi and
 # creating desktop shortcuts to control the proxy settings
 
 printf "Starting loaner setup... \n"
 
 printf "downloading proxy scripts..."
-wget -N -P ~ https://www.dropbox.com/s/frpjsq28q0354sh/ProxyEBA.sh
-wget -N -P ~ https://www.dropbox.com/s/161r0r5b4a61gfy/ProxyOff.sh
-sudo chmod +x ~/{ProxyEBA.sh,ProxyOff.sh};
+#wget -N -P ~ https://www.dropbox.com/s/frpjsq28q0354sh/ProxyEBA.sh
+#wget -N -P ~ https://www.dropbox.com/s/161r0r5b4a61gfy/ProxyOff.sh
+sudo chmod +x ~/eba-setup-scripts/{ProxyEBA.sh,ProxyOff.sh};
 
 printf "setting desktop shortcuts for pupil..."
 sudo su -c 'printf "[Desktop Entry]\nType=Application\nName=Proxy On for EBA\nExec=/home/eba/ProxyEBA.sh \nTerminal=true" \
