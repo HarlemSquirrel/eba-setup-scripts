@@ -68,12 +68,12 @@ if [ "$set_as_loaner" == "Y" ] || [ "$set_as_loaner" == "y" ]; then
 	run_eba_setup="y";
 	full_upgrade="y";
 else
-	if [ ! -e "/etc/xdg/autostart/studentwnd.desktop" ]; then
-		read -n 1 -t 10 -p "Would you like to download and install LanSchool student? (y/N) " install_LS;
-		printf "\n"
-	else
-		colorprintf blue "LanSchool seems to be already installed. \n"
-	fi
+	#if [ ! -e "/etc/xdg/autostart/studentwnd.desktop" ]; then
+	#	read -n 1 -t 10 -p "Would you like to download and install LanSchool student? (y/N) " install_LS;
+	#	printf "\n"
+	#else
+	#	colorprintf blue "LanSchool seems to be already installed. \n"
+	#fi
 
 	read -n 1 -t 10 -p "Would you like to run eba-setup.sh? (y/N) " run_eba_setup;
 	printf "\n"
@@ -138,7 +138,7 @@ if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
 	then
 		colorprintf red "\n \t eba-setup.sh had $eba_setup_errors error(s)! \n"
 	fi
-	rm eba-setup.sh*
+	#rm eba-setup.sh*
 fi
 
 
