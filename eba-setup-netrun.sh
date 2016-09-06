@@ -127,9 +127,9 @@ LANSCHOOL
 ### eba-setup
 eba_setup_errors=0
 if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
-	if [ "$1" != "no-wget" ]; then
-		wget -N -P ~ https://www.dropbox.com/s/ob66mndq6ogwdoo/eba-setup.sh;
-	fi
+	#if [ "$1" != "no-wget" ]; then
+	#	wget -N -P ~ https://www.dropbox.com/s/ob66mndq6ogwdoo/eba-setup.sh;
+	#fi
 	printf "starting eba-setup...\n"
 	#bash ~/eba-setup.sh
 	bash ~/eba-setup-scripts/eba-setup.sh
