@@ -26,7 +26,7 @@ if [ "$1" != "no-wget" ]; then
 	printf blue "Downloading scripts... \n"
 	export http_proxy=http://filtr.nycboe.org:8002/
 	if ! hash git 2>/dev/null; then
-		sudo apt install git;
+		sudo apt install -y git;
 	fi
 
 	# git pull or clone scripts
@@ -41,7 +41,7 @@ if [ "$1" != "no-wget" ]; then
 	#wget -N -P ~ https://www.dropbox.com/s/gzi4g7fwe42aj34/pupil-setup.sh;
 	#wget -N -P ~ https://www.dropbox.com/s/frpjsq28q0354sh/ProxyEBA.sh
 	#wget -N -P ~ https://www.dropbox.com/s/vy3g26umr74ciub/loaner-setup.sh;
-	
+
 	colorprintf green "done. \n"
 fi
 #chmod +x ~/pupil-setup.sh
