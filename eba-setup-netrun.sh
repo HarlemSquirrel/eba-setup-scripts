@@ -170,13 +170,13 @@ fi
 full_upgrade_errors=0
 if [ "$full_upgrade" = "y" -o "$full_upgrade" = "Y" ]; then
 	printf "\n  starting full system upgrade...\n"
-	sudo -E apt-get -qq update;
-	#sudo -E apt-get -f -y dist-upgrade;
+	sudo -E apt -qq update;
+	#sudo -E apt -f -y dist-upgrade;
 	sudo DEBIAN_FRONTEND=noninteractive dpkg --force-confold --force-confdef --configure -a
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" \
+	sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" \
 		-o Dpkg::Options::="--force-confold" dist-upgrade
 	full_upgrade_errors=$?;
-	sudo apt-get -qq autoremove;
+	sudo apt -qq autoremove;
 	if [ $full_upgrade_errors -ne 0 ]; then
 		colorprintf red "\n \t the full upgrade had $full_upgrade_errors error(s)! \n";
 	else

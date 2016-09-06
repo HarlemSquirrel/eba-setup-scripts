@@ -199,7 +199,7 @@ then
 	rm -rf ~/.local/share/ubuntuone
 	rm -rf ~/.cache/ubuntuone
 	rm -rf ~/.config/ubuntuone
-	sudo apt-get -qq purge ubuntuone-client ubuntuone-installer python-ubuntuone-storage*
+	sudo apt -qq purge ubuntuone-client ubuntuone-installer python-ubuntuone-storage*
 	colorprintf blue "removed.\n"
 else
 	colorprintf green "verified gone.\n"
@@ -255,7 +255,7 @@ colorprintf green "done.\n"
 printf "The elves are updating the package lists..."
 sudo rm -rf /var/lib/apt/lists/* -f
 tput setaf 7 # gray
-sudo -E apt-get -qq update || sudo -E apt-get update
+sudo -E apt -qq update || sudo -E apt update
 tput sgr0 # reset color
 colorprintf green "done.\n"
 
@@ -263,11 +263,11 @@ colorprintf green "done.\n"
 # Remove the messaging and other applications
 printf "Removing messaging and internet apps... \n"
 tput setaf 7	# gray
-sudo apt-get -qq remove deja-dup indicator-messages empathy gwibber steam thunderbird transmission-gtk pidgin
+sudo apt -qq remove deja-dup indicator-messages empathy gwibber steam thunderbird transmission-gtk pidgin
 if [ "$desktop_env" = "MATE" ]; then
-	sudo apt-get -qq remove hexchat
+	sudo apt -qq remove hexchat
 elif [ "$desktop_env" = "Unity" ]; then
-	sudo apt-get -qq remove landscape-* webbrowser-app unity-control-center-signon
+	sudo apt -qq remove landscape-* webbrowser-app unity-control-center-signon
 fi
 colorprintf green "done.\n"
 
@@ -285,7 +285,7 @@ else {
 
 	fi
 	printf "installing...\n"
-	sudo dpkg -i google-chrome-stable_current_*.deb || sudo -E apt-get -f install;
+	sudo dpkg -i google-chrome-stable_current_*.deb || sudo -E apt -f install;
 	colorprintf blue "installed.\n"
 }
 fi
@@ -298,7 +298,7 @@ if [ "$distro_vers" = "12.04" ]; then
 		colorprintf blue "downloading...\n"
 		wget -P ~/Downloads http://katana.oooninja.com/bleachbit/sf/bleachbit_1.6_all_ubuntu1204.deb
 		colorprintf blue "installing...\n"
-		sudo dpkg -i ~/Downloads/bleachbit_1.6_all_ubuntu1204.deb || sudo apt-get install -f -y
+		sudo dpkg -i ~/Downloads/bleachbit_1.6_all_ubuntu1204.deb || sudo apt install -f -y
 		rm ~/Downloads/bleachbit_1.6_all_ubuntu1204.deb
 	fi
 	colorprintf green "done.\n"
@@ -316,7 +316,7 @@ colorprintf green "done.\n";
 
 # Install English and Spanish packages to complete language files and emoticons
 printf "The elves are installing language packages..."
-sudo -E apt-get -y -qq install ttf-ancient-fonts hyphen-en-us mythes-en-us firefox-locale-es gimp-help-es language-pack-es language-pack-gnome-es libreoffice-help-es libreoffice-l10n-es myspell-es wspanish;
+sudo -E apt -y -qq install ttf-ancient-fonts hyphen-en-us mythes-en-us firefox-locale-es gimp-help-es language-pack-es language-pack-gnome-es libreoffice-help-es libreoffice-l10n-es myspell-es wspanish;
 colorprintf green "done.\n";
 
 
@@ -336,11 +336,11 @@ colorprintf green "done.\n";
 
 # Install some software
 printf "The elves are installing more cool stuff..."
-sudo -E apt-get -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw atom;
+sudo -E apt -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw atom;
 # install Edubuntu artwork if Unity
 if [ "$desktop_env" = "Unity" ]; then
 	printf "installing edubuntu-artwork..."
-	sudo -E apt-get -qq install edubuntu-artwork
+	sudo -E apt -qq install edubuntu-artwork
 	colorprintf "done.\n"
 fi
 colorprintf green "done.\n";
