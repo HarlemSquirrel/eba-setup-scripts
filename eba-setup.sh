@@ -246,7 +246,7 @@ check_ppa java ppa:webupd8team/java;
 #check_ppa mixxx ppa:mixxx/mixxx;
 check_ppa tlp ppa:linrunner/tlp;
 check_ppa openscad ppa:openscad/releases;
-check_ppa ppa:webupd8team/atom;
+check_ppa atom ppa:webupd8team/atom;
 
 colorprintf green "done.\n"
 
