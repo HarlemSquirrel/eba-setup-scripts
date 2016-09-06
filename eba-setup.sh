@@ -245,6 +245,7 @@ check_ppa java ppa:webupd8team/java;
 #check_ppa mixxx ppa:mixxx/mixxx;
 check_ppa tlp ppa:linrunner/tlp;
 check_ppa openscad ppa:openscad/releases;
+check_ppa ppa:webupd8team/atom;
 
 colorprintf green "done.\n"
 
@@ -334,7 +335,7 @@ colorprintf green "done.\n";
 
 # Install some software
 printf "The elves are installing more cool stuff..."
-sudo -E apt-get -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw;
+sudo -E apt-get -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw atom;
 # install Edubuntu artwork if Unity
 if [ "$desktop_env" = "Unity" ]; then
 	printf "installing edubuntu-artwork..."
