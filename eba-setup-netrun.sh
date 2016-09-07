@@ -23,7 +23,7 @@ colorprintf () {
 
 ### Download scripts unless run with no-wget argument
 if [ "$1" != "no-wget" ]; then
-	printf blue "Downloading scripts... \n"
+	colorprintf blue "Downloading scripts... \n"
 	export http_proxy=http://filtr.nycboe.org:8002/
 	if ! hash git 2>/dev/null; then
 		sudo apt install -y git;
