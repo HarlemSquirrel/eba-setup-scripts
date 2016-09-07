@@ -55,11 +55,11 @@ kernel_arch=$(uname -i);
 kernel_vers=$(uname -r);
 model=$(cat /sys/class/dmi/id/product_name | sed -e 's/^[ \t]*//');
 if [  "$(sudo cat /sys/class/dmi/id/chassis_serial | sed -e 's/^[ \t]*//')" != "" ]; then
-	serial_number=$(cat /sys/class/dmi/id/chassis_serial);
+	serial_number=$(sudo cat /sys/class/dmi/id/chassis_serial);
 elif [ "$(sudo cat /sys/class/dmi/id/board_serial | sed -e 's/^[ \t]*//')" != "" ]; then
-	serial_number=$(cat /sys/class/dmi/id/board_serial);
+	serial_number=$(sudo cat /sys/class/dmi/id/board_serial);
 elif [ "$(sudo cat /sys/class/dmi/id/product_serial | sed -e 's/^[ \t]*//')" != "" ]; then
-	serial_number=$(cat /sys/class/dmi/id/product_serial);
+	serial_number=$(sudo cat /sys/class/dmi/id/product_serial);
 fi
 vendor=$(cat "/sys/class/dmi/id/sys_vendor");
 if [ -e "/usr/share/xsessions/ubuntu.desktop" ]; then
