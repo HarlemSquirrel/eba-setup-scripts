@@ -46,19 +46,19 @@ colorprintf () {
 #  -------- Declare variables --------
 # -------------------------------------
 
-asset_tag=$(cat "/sys/class/dmi/id/chassis_asset_tag");
+asset_tag=$(cat /sys/class/dmi/id/chassis_asset_tag);
 bios_vers=$(cat /sys/class/dmi/id/bios_version);
 distro=$(lsb_release -is);
 distro_vers=$(lsb_release -rs);
 distro_desc=$(lsb_release -ds);
 kernel_arch=$(uname -i);
 kernel_vers=$(uname -r);
-model=$(cat "/sys/class/dmi/id/product_name | sed -e 's/^[ \t]*//'");
-if [  "$(cat /sys/class/dmi/id/chassis_serial | sed -e 's/^[ \t]*//')" != "" ]; then
+model=$(cat /sys/class/dmi/id/product_name | sed -e 's/^[ \t]*//');
+if [  "$(sudo cat /sys/class/dmi/id/chassis_serial | sed -e 's/^[ \t]*//')" != "" ]; then
 	serial_number=$(cat /sys/class/dmi/id/chassis_serial);
-elif [ "$(cat /sys/class/dmi/id/board_serial | sed -e 's/^[ \t]*//')" != "" ]; then
+elif [ "$(sudo cat /sys/class/dmi/id/board_serial | sed -e 's/^[ \t]*//')" != "" ]; then
 	serial_number=$(cat /sys/class/dmi/id/board_serial);
-elif [ "$(cat /sys/class/dmi/id/product_serial | sed -e 's/^[ \t]*//')" != "" ]; then
+elif [ "$(sudo cat /sys/class/dmi/id/product_serial | sed -e 's/^[ \t]*//')" != "" ]; then
 	serial_number=$(cat /sys/class/dmi/id/product_serial);
 fi
 vendor=$(cat "/sys/class/dmi/id/sys_vendor");
