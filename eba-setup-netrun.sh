@@ -23,13 +23,14 @@ colorprintf () {
 
 ### Download scripts unless run with no-wget argument
 if [ "$1" != "no-wget" ]; then
-	colorprintf blue "Downloading scripts... \n"
 	export http_proxy=http://filtr.nycboe.org:8002/
 	if ! hash git 2>/dev/null; then
+		colorprintf blue "Installing git... \n"
 		sudo apt install -y git;
 	fi
 
 	# git pull or clone scripts
+	colorprintf blue "Retrieving scripts... \n"
 	if [[ -e ~/eba-setup-scripts ]]; then
 		cd ~/eba-setup-scripts && git pull
 	else
@@ -176,7 +177,7 @@ if [ "$full_upgrade" = "y" -o "$full_upgrade" = "Y" ]; then
 	sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" \
 		-o Dpkg::Options::="--force-confold" dist-upgrade
 	full_upgrade_errors=$?;
-	sudo apt -qq autoremove;
+	sudo apt-get -qq autoremove;
 	if [ $full_upgrade_errors -ne 0 ]; then
 		colorprintf red "\n \t the full upgrade had $full_upgrade_errors error(s)! \n";
 	else
