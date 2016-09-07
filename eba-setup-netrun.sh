@@ -174,7 +174,7 @@ if [ "$full_upgrade" = "y" -o "$full_upgrade" = "Y" ]; then
 	sudo -E apt -qq update;
 	#sudo -E apt -f -y dist-upgrade;
 	sudo DEBIAN_FRONTEND=noninteractive dpkg --force-confold --force-confdef --configure -a
-	sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::="--force-confdef" \
+	sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" \
 		-o Dpkg::Options::="--force-confold" dist-upgrade
 	full_upgrade_errors=$?;
 	sudo apt-get -qq autoremove;
