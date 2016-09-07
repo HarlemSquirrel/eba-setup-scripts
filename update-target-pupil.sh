@@ -25,7 +25,7 @@ ssh-copy-id eba@$target.local
 # Copy and run the setup scripts
 #scp ~/Dropbox/Scripts/{eba-setup-netrun.sh,eba-setup.sh,loaner-setup.sh,set-hostname.sh,ProxyEBA.sh,pupil-setup.sh,configs/10-network-manager.pkla} eba@$target.local:~
 #ssh -t -t eba@$target.local bash eba-setup-netrun.sh no-wget
-scp ~/code/eba-setup-scripts eba@$target.local:~
+scp -r . eba@$target.local:~
 ssh -t -t eba@$target.local bash eba-setup-netrun.sh
 
 ### Notification of completion
