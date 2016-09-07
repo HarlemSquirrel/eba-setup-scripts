@@ -22,9 +22,11 @@ ssh-copy-id eba@$target.local
 # Hide all startup apps, undoing my previous reveals, doh!
 #ssh -t -t eba@$1.local sudo sed -i "s/NoDisplay=false/NoDisplay=true/g" "/etc/xdg/autostart/*.desktop"
 
-# Copy and run the setup script
-scp ~/Dropbox/Scripts/{eba-setup-netrun.sh,eba-setup.sh,loaner-setup.sh,set-hostname.sh,ProxyEBA.sh,pupil-setup.sh,configs/10-network-manager.pkla} eba@$target.local:~
-ssh -t -t eba@$target.local bash eba-setup-netrun.sh no-wget
+# Copy and run the setup scripts
+#scp ~/Dropbox/Scripts/{eba-setup-netrun.sh,eba-setup.sh,loaner-setup.sh,set-hostname.sh,ProxyEBA.sh,pupil-setup.sh,configs/10-network-manager.pkla} eba@$target.local:~
+#ssh -t -t eba@$target.local bash eba-setup-netrun.sh no-wget
+scp ~/code/eba-setup-scripts eba@$target.local:~
+ssh -t -t eba@$target.local bash eba-setup-netrun.sh
 
 ### Notification of completion
 tput bold
