@@ -16,7 +16,7 @@ fi
 target=$( echo $1 | tr '[:upper:]' '[:lower:]');
 
 # Copy ssh key to target
-ssh-copy-id eba@$target.local
+ssh-copy-id eba@$target
 
 
 # Hide all startup apps, undoing my previous reveals, doh!
@@ -25,8 +25,8 @@ ssh-copy-id eba@$target.local
 # Copy and run the setup scripts
 #scp ~/Dropbox/Scripts/{eba-setup-netrun.sh,eba-setup.sh,loaner-setup.sh,set-hostname.sh,ProxyEBA.sh,pupil-setup.sh,configs/10-network-manager.pkla} eba@$target.local:~
 #ssh -t -t eba@$target.local bash eba-setup-netrun.sh no-wget
-scp -r . eba@$target.local:~
-ssh -t -t eba@$target.local bash eba-setup-netrun.sh
+scp -r . eba@$target:~
+ssh -t -t eba@$target bash eba-setup-netrun.sh
 
 ### Notification of completion
 tput bold
