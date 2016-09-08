@@ -20,7 +20,7 @@ colorprintf () {
 
 
 # Remove out old scripts
-rm ~/*.pkla ~/*.sh
+rm ~/*{.pkla,.sh}
 
 ### Download scripts unless run with no-wget argument
 if [ "$1" != "no-wget" ]; then
