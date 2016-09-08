@@ -27,7 +27,12 @@ ssh-copy-id eba@$target
 #ssh -t -t eba@$target.local bash eba-setup-netrun.sh no-wget
 #scp -r . eba@$target:~
 #rsync -acru -e ssh ~/code/eba-setup-scripts eba@$target:~
-ssh -t -t eba@$target 'sudo apt install -y git && git clone https://github.com/HarlemSquirrel/eba-setup-scripts.git /home/eba/eba-setup-scripts'
+ssh -t -t eba@$target '
+	if [ -e eba-setup-scripts ]; then
+		cd eba-setup-scripts && git pull;
+	else
+		sudo apt install -y git && git clone https://github.com/HarlemSquirrel/eba-setup-scripts.git /home/eba/eba-setup-scripts;
+	fi'
 ssh -t -t eba@$target bash eba-setup-scripts/eba-setup-netrun.sh
 
 ### Notification of completion
