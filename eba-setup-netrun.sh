@@ -62,9 +62,13 @@ sudo bash ~/eba-setup-scripts/ProxyEBA.sh
 #	colorprintf green "done.\n"
 #fi
 
+if [ "$1" == "loaner" ]; then
+	# set the loaner variable if run with loaner argument
+	$set_as_loaner == "y";
+fi
 ### Setup Prompts
-read -n 1 -t 10 -p "Setup as a loaner? (y/N) " set_as_loaner;
-printf "\n"
+#read -n 1 -t 10 -p "Setup as a loaner? (y/N) " set_as_loaner;
+#printf "\n"
 if [ "$set_as_loaner" == "Y" ] || [ "$set_as_loaner" == "y" ]; then
 	# Run eba-setup and so a full upgrade for loaners
 	run_eba_setup="y";
