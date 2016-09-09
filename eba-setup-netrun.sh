@@ -171,9 +171,9 @@ fi
 ### create pupil-setup desktop shortcut
 create_pupil_setup_desktop_shortcut_errors=0
 if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
-	chmod +x ~/pupil-setup.sh
+	#chmod +x ~/pupil-setup.sh
 	printf "\n  creating desktop shorcut for pupil-setup...\n"
-	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=/home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
+	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=bash /home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
 	sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
 	create_pupil_setup_desktop_shortcut_errors=$?
 	if [ $create_pupil_setup_desktop_shortcut_errors -ne 0 ]; then
@@ -221,7 +221,7 @@ fi
 
 
 ### Finish and prompt for action
-total_errors=$(($eba_setup_errors+$pupil_setup_errors+$set_hostname_errors+$full_upgrade_errors+$pupil_setup_desktop_shortcut))
+total_errors=$(($eba_setup_errors+$pupil_setup_errors+$set_hostname_errors+$full_upgrade_errors+$create_pupil_setup_desktop_shortcut_errors))
 if [ $total_errors -gt 0 ]; then
 	colorprintf red "\n \t All done running sciprts, but we encountered $total_errors error(s)! \n"
 else
