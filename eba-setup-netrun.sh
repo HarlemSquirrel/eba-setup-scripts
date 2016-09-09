@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script downloads and runs the eba-setup and pupil-setup scripts
+# This script downloads and runs the setup scripts
 
 # 	------ Functions ------
 # ---------------------------
@@ -120,37 +120,6 @@ function setup_lanschool {
 	fi
 }
 
-function run_eba_setup {
-	if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
-		#if [ "$1" != "no-wget" ]; then
-		#	wget -N -P ~ https://www.dropbox.com/s/ob66mndq6ogwdoo/eba-setup.sh;
-		#fi
-		printf "starting eba-setup...\n"
-		#bash ~/eba-setup.sh
-		bash ~/eba-setup-scripts/eba-setup.sh
-		eba_setup_errors=$?
-		if [ $eba_setup_errors -ne 0 ];
-		then
-			colorprintf red "\n \t eba-setup.sh had $eba_setup_errors error(s)! \n"
-		fi
-		#rm eba-setup.sh*
-	fi
-}
-
-function run_pupil_setup {
-	if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
-		chmod +x ~/pupil-setup.sh
-		printf "\n  starting pupil-setup...\n"
-		#sudo -H -u pupil bash ~/pupil-setup.sh
-		sudo -H -u pupil bash ~/eba-setup-scripts/pupil-setup.sh
-		#sudo su pupil -c "rm -r ~/.mozilla/firefox/*.default && DISPLAY=:0 firefox & sleep 3 && ./pupil-setup.sh"
-		pupil_setup_errors=$?
-		if [ $pupil_setup_errors -ne 0 ]; then
-			colorprintf red "\n \t pupil-setup had $pupil_setup_errors error(s)! \n"
-		fi
-	fi
-}
-
 function create_pupil_setup_desktop_shortcut {
 	if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
 
@@ -164,16 +133,6 @@ function create_pupil_setup_desktop_shortcut {
 		if [ $create_pupil_setup_desktop_shortcut_errors -ne 0 ]; then
 			colorprintf red "\n \t creating pupil-setup desktop shortcut had $pupil_setup_errors error(s)! \n"
 		fi
-	fi
-}
-
-function run_loaner_setup {
-	### Loaner setup
-	if [ "$set_as_loaner" = "y" -o "$set_as_loaner" = "Y" ]; then
-		colorprintf blue "Setting up this machine as a loaner..."
-		#bash ~/loaner-setup.sh;
-		bash ~/eba-setup-scripts/loaner-setup.sh
-		colorprintf green "done. \n";
 	fi
 }
 
@@ -192,15 +151,6 @@ function full_system_upgrade {
 		else
 			colorprintf green "done.\n";
 		fi
-	fi
-}
-
-function run_set_hostname_script {
-	#sudo bash ~/set-hostname.sh $desired_new_hostname;
-	sudo bash ~/eba-setup-scripts/set-hostname.sh $desired_new_hostname;
-	set_hostname_errors=$?;
-	if [ $set_hostname_errors -ne 0 ]; then
-		colorprintf red "\n \t set-hostname had $set_hostname_errors error(s)! \n"
 	fi
 }
 
@@ -234,33 +184,61 @@ function finish_and_prompt {
 # 	------ Main Sequence ------
 # -------------------------------
 
+# Set variables
+eba_setup_errors=0
+pupil_setup_errors=0
+create_pupil_setup_desktop_shortcut_errors=0
+full_upgrade_errors=0
+set_hostname_errors=0
+
 # Remove out old scripts
 rm ~/*{.pkla,.sh}
 
-get_scripts
+get_scripts;
 
 # Set proxy settings to at EBA
 sudo bash ~/eba-setup-scripts/ProxyEBA.sh
 
-set_runtime_options
+set_runtime_options;
 
-check_and_disable_sudo_for_eba
+check_and_disable_sudo_for_eba;
 
-eba_setup_errors=0
-run_eba_setup
+# Run eba_setup script
+if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
+	printf "starting eba-setup...\n"
+	bash ~/eba-setup-scripts/eba-setup.sh
+	eba_setup_errors=$?
+	if [ $eba_setup_errors -ne 0 ]; then
+		colorprintf red "\n \t eba-setup.sh had $eba_setup_errors error(s)! \n"
+	fi
+fi
 
-pupil_setup_errors=0
-run_pupil_setup
+# Run pupil_setup script if desired
+if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
+	printf "\n  starting pupil-setup...\n"
+	sudo -H -u pupil bash ~/eba-setup-scripts/pupil-setup.sh
+	pupil_setup_errors=$?
+	if [ $pupil_setup_errors -ne 0 ]; then
+		colorprintf red "\n \t pupil-setup had $pupil_setup_errors error(s)! \n"
+	fi
+fi
 
-create_pupil_setup_desktop_shortcut_errors=0
-create_pupil_setup_desktop_shortcut
+create_pupil_setup_desktop_shortcut;
 
-run_loaner_setup
+# Run loaner_setup script if desired
+if [ "$set_as_loaner" = "y" -o "$set_as_loaner" = "Y" ]; then
+	colorprintf blue "Setting up this machine as a loaner..."
+	bash ~/eba-setup-scripts/loaner-setup.sh
+	colorprintf green "done. \n";
+fi
 
-full_upgrade_errors=0
-full_system_upgrade
+full_system_upgrade;
 
-set_hostname_errors=0
-run_set_hostname_script
+# Run set_hostname script
+sudo bash ~/eba-setup-scripts/set-hostname.sh
+set_hostname_errors=$?;
+if [ $set_hostname_errors -ne 0 ]; then
+	colorprintf red "\n \t set-hostname had $set_hostname_errors error(s)! \n"
+fi
 
-finish_and_prompt
+finish_and_prompt;
