@@ -33,7 +33,7 @@ if [ "$1" != "no-wget" ]; then
 	# git pull or clone scripts
 	colorprintf blue "Retrieving scripts... \n"
 	if [[ -e ~/eba-setup-scripts ]]; then
-		cd ~/eba-setup-scripts && git pull
+		cd ~/eba-setup-scripts && git reset --hard && git pull
 	else
 		git clone https://github.com/HarlemSquirrel/eba-setup-scripts.git ~/eba-setup-scripts
 	fi
@@ -171,13 +171,13 @@ PUPILSETUP
 ### create pupil-setup desktop shortcut
 create_pupil_setup_desktop_shortcut_errors=0
 if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
-	#chmod +x ~/pupil-setup.sh
+	
 	printf "\n  creating desktop shorcut for pupil-setup...\n"
-	#sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=bash /home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
-	#sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
-	sudo cp /home/eba/eba-setup-scripts/pupil-setup.sh /home/pupil/Desktop
-	sudo chown pupil /home/pupil/Desktop/pupil-setup.sh
-	sudo chmod +x /home/pupil/Desktop/pupil-setup.sh
+	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=bash /home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
+	sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
+	#sudo cp /home/eba/eba-setup-scripts/pupil-setup.sh /home/pupil/Desktop
+	#sudo chown pupil /home/pupil/Desktop/pupil-setup.sh
+	#sudo chmod +x /home/pupil/Desktop/pupil-setup.sh
 	create_pupil_setup_desktop_shortcut_errors=$?
 	if [ $create_pupil_setup_desktop_shortcut_errors -ne 0 ]; then
 		colorprintf red "\n \t creating pupil-setup desktop shortcut had $pupil_setup_errors error(s)! \n"
