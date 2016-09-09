@@ -152,7 +152,7 @@ if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
 	#rm eba-setup.sh*
 fi
 
-
+<<PUPILSETUP
 ### pupil-setup
 pupil_setup_errors=0
 if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
@@ -166,7 +166,7 @@ if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
 		colorprintf red "\n \t pupil-setup had $pupil_setup_errors error(s)! \n"
 	fi
 fi
-
+PUPILSETUP
 
 ### create pupil-setup desktop shortcut
 create_pupil_setup_desktop_shortcut_errors=0
