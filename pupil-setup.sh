@@ -67,11 +67,13 @@ colorprintf cyan "Welcome to Kevin McCormack's pupil-setup script designed for U
 colorprintf orange "WARNING: This script will permenently delete all user content on this account! \n"
 read -n 1 -p "Continue? [y/N]" $proceed
 printf "\n"
-if [ "$proceed" != "Y" -a "$proceed" != "y" ]; then
+if [ "$proceed" = "y" -o "$proceed" = "Y" ]; then
+	colorprintf cyan "Waking up the elves to set up the pupil for $desktop_env...\n";
+else
 	exit 0;
 fi
 
-colorprintf cyan "Waking up the elves to set up the pupil for $desktop_env...\n";
+
 
 # Set environment and proxy settings for user
 printf "Setting the environment and proxy settings for pupil..."
