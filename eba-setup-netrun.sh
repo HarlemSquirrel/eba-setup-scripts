@@ -47,7 +47,7 @@ if [ "$1" != "no-wget" ]; then
 	colorprintf green "done. \n"
 fi
 #chmod +x ~/pupil-setup.sh
-chmod +x ~/eba-setup-scripts/pupil-setup.sh
+#chmod +x ~/eba-setup-scripts/pupil-setup.sh
 
 
 ### Set proxy settings to at EBA
@@ -171,7 +171,7 @@ PUPILSETUP
 ### create pupil-setup desktop shortcut
 create_pupil_setup_desktop_shortcut_errors=0
 if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
-	
+
 	printf "\n  creating desktop shorcut for pupil-setup...\n"
 	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=bash /home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
 	sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
