@@ -62,8 +62,15 @@ set -o pipefail  	# trace ERR through pipes
 # Clear the screen and introduce elves
 clear
 colorprintf cyan "Welcome to Kevin McCormack's pupil-setup script designed for Ubuntu 12.04 or 14.04 running Unity or MATE! \n"
-colorprintf cyan "Waking up the elves to set up the pupil for $desktop_env...\n";
 
+# Warn about permenently deleting all user content
+colorprintf orange "WARNING: This script will permenently delete all user content on this account! Continue? [y/N]"
+read -n 1 $proceed
+if [[ "$proceed" != "Y" || "$proceed" != "y" ]]; then
+	exit 0;
+fi
+
+colorprintf cyan "Waking up the elves to set up the pupil for $desktop_env...\n";
 
 # Set environment and proxy settings for user
 printf "Setting the environment and proxy settings for pupil..."
