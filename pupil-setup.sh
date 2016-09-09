@@ -64,8 +64,8 @@ clear
 colorprintf cyan "Welcome to Kevin McCormack's pupil-setup script designed for Ubuntu 12.04 or 14.04 running Unity or MATE! \n"
 
 # Warn about permenently deleting all user content
-colorprintf orange "WARNING: This script will permenently delete all user content on this account! \nContinue? [y/N]"
-read -n 1 $proceed
+colorprintf orange "WARNING: This script will permenently delete all user content on this account! \n"
+read -n 1 -p "Continue? [y/N]" $proceed
 printf "\n"
 if [ "$proceed" != "Y" -o "$proceed" != "y" ]; then
 	exit 0;
