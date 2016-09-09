@@ -83,8 +83,13 @@ else
 
 	read -n 1 -t 10 -p "Would you like to run eba-setup.sh? (y/N) " run_eba_setup;
 	printf "\n"
+
 	#read -n 1 -t 10 -p "Would you like to run pupil-setup.sh? (y/N) " run_pupil_setup;
 	#printf "\n"
+
+	read -n 1 -t 10 -p "Create desktop shortcut for pupil-setup? (y/N) " pupil_setup_desktop_shortcut;
+	printf "\n \n"
+
 	read -n 1 -t 10 -p "Download and upgrade all packages? (y/N) " full_upgrade;
 	printf "\n \n"
 fi
@@ -163,6 +168,20 @@ if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
 fi
 
 
+### create pupil-setup desktop shortcut
+create_pupil_setup_desktop_shortcut_errors=0
+if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
+	chmod +x ~/pupil-setup.sh
+	printf "\n  creating desktop shorcut for pupil-setup...\n"
+	sudo su pupil -c 'printf "[Desktop Entry]\nType=Application\nExec=/home/eba/eba-setup-scripts/pupil-setup.sh\nTerminal=true" > /home/pupil/Desktop/pupil-setup.desktop;'
+	sudo chmod +x /home/pupil/Desktop/pupil-setup.desktop
+	create_pupil_setup_desktop_shortcut_errors=$?
+	if [ $create_pupil_setup_desktop_shortcut_errors -ne 0 ]; then
+		colorprintf red "\n \t creating pupil-setup desktop shortcut had $pupil_setup_errors error(s)! \n"
+	fi
+fi
+
+
 ### Loaner setup
 if [ "$set_as_loaner" = "y" -o "$set_as_loaner" = "Y" ]; then
 	colorprintf blue "Setting up this machine as a loaner..."
@@ -202,7 +221,7 @@ fi
 
 
 ### Finish and prompt for action
-total_errors=$(($eba_setup_errors+$pupil_setup_errors+$set_hostname_errors+$full_upgrade_errors))
+total_errors=$(($eba_setup_errors+$pupil_setup_errors+$set_hostname_errors+$full_upgrade_errors+$pupil_setup_desktop_shortcut))
 if [ $total_errors -gt 0 ]; then
 	colorprintf red "\n \t All done running sciprts, but we encountered $total_errors error(s)! \n"
 else
