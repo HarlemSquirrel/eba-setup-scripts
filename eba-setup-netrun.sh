@@ -5,7 +5,7 @@
 # ---------------------------
 
 ### Function to print in specified color
-function colorprintf() {
+function colorprintf {
 	case $1 in
 		"red") tput setaf 1;;
 		"green") tput setaf 2;;
@@ -20,7 +20,7 @@ function colorprintf() {
 	tput sgr0
 }
 
-function get_scripts() {
+function get_scripts {
 	### Download scripts
 	export http_proxy=http://filtr.nycboe.org:8002/
 
@@ -47,7 +47,7 @@ function get_scripts() {
 	colorprintf green "done. \n"
 }
 
-function set_runtime_options() {
+function set_runtime_options {
 	if [ "$1" == "loaner" ]; then
 		# set the loaner variable if run with loaner argument
 		$set_as_loaner == "y";
@@ -87,7 +87,7 @@ function set_runtime_options() {
 	#printf "\n"
 }
 
-function check_and_disable_sudo_for_eba() {
+function check_and_disable_sudo_for_eba {
 	### Check for and disable sudo password for eba
 	printf "Checking sudo password..."
 	if sudo grep -q "eba ALL=(ALL) NOPASSWD: ALL" "/etc/sudoers"; then
@@ -98,7 +98,7 @@ function check_and_disable_sudo_for_eba() {
 	fi
 }
 
-function setup_lanschool() {
+function setup_lanschool {
 	# Download and install LanSchool student
 	if [ "$install_LS" == "y" ]; then
 		printf "starting LanSchool setup...\n"
@@ -120,7 +120,7 @@ function setup_lanschool() {
 	fi
 }
 
-function run_eba_setup() {
+function run_eba_setup {
 	if [ "$run_eba_setup" = "y" -o "$run_eba_setup" = "Y" ]; then
 		#if [ "$1" != "no-wget" ]; then
 		#	wget -N -P ~ https://www.dropbox.com/s/ob66mndq6ogwdoo/eba-setup.sh;
@@ -137,7 +137,7 @@ function run_eba_setup() {
 	fi
 }
 
-function run_pupil_setup() {
+function run_pupil_setup {
 	if [ "$run_pupil_setup" = "y" -o "$run_pupil_setup" = "Y" ]; then
 		chmod +x ~/pupil-setup.sh
 		printf "\n  starting pupil-setup...\n"
@@ -151,7 +151,7 @@ function run_pupil_setup() {
 	fi
 }
 
-function create_pupil_setup_desktop_shortcut() {
+function create_pupil_setup_desktop_shortcut {
 	if [ "$pupil_setup_desktop_shortcut" = "y" -o "$pupil_setup_desktop_shortcut" = "Y" ]; then
 
 		printf "\n  creating desktop shorcut for pupil-setup...\n"
@@ -167,7 +167,7 @@ function create_pupil_setup_desktop_shortcut() {
 	fi
 }
 
-function run_loaner_setup() {
+function run_loaner_setup {
 	### Loaner setup
 	if [ "$set_as_loaner" = "y" -o "$set_as_loaner" = "Y" ]; then
 		colorprintf blue "Setting up this machine as a loaner..."
@@ -177,7 +177,7 @@ function run_loaner_setup() {
 	fi
 }
 
-function full_system_upgrade() {
+function full_system_upgrade {
 	if [ "$full_upgrade" = "y" -o "$full_upgrade" = "Y" ]; then
 		printf "\n  starting full system upgrade...\n"
 		sudo -E apt -qq update;
@@ -195,7 +195,7 @@ function full_system_upgrade() {
 	fi
 }
 
-function run_set_hostname_script() {
+function run_set_hostname_script {
 	#sudo bash ~/set-hostname.sh $desired_new_hostname;
 	sudo bash ~/eba-setup-scripts/set-hostname.sh $desired_new_hostname;
 	set_hostname_errors=$?;
@@ -204,7 +204,7 @@ function run_set_hostname_script() {
 	fi
 }
 
-function finish_and_prompt() {
+function finish_and_prompt {
 	### Finish and prompt for action
 	total_errors=$(($eba_setup_errors+$pupil_setup_errors+$set_hostname_errors+$full_upgrade_errors+$create_pupil_setup_desktop_shortcut_errors))
 	if [ $total_errors -gt 0 ]; then
@@ -237,30 +237,30 @@ function finish_and_prompt() {
 # Remove out old scripts
 rm ~/*{.pkla,.sh}
 
-get_scripts();
+get_scripts
 
 # Set proxy settings to at EBA
 sudo bash ~/eba-setup-scripts/ProxyEBA.sh
 
-set_runtime_options();
+set_runtime_options
 
-check_and_disable_sudo_for_eba();
+check_and_disable_sudo_for_eba
 
 eba_setup_errors=0
-run_eba_setup();
+run_eba_setup
 
 pupil_setup_errors=0
-run_pupil_setup();
+run_pupil_setup
 
 create_pupil_setup_desktop_shortcut_errors=0
-create_pupil_setup_desktop_shortcut();
+create_pupil_setup_desktop_shortcut
 
-run_loaner_setup();
+run_loaner_setup
 
 full_upgrade_errors=0
-full_system_upgrade();
+full_system_upgrade
 
 set_hostname_errors=0
-run_set_hostname_script();
+run_set_hostname_script
 
-finish_and_prompt();
+finish_and_prompt
