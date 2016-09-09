@@ -67,7 +67,7 @@ colorprintf cyan "Welcome to Kevin McCormack's pupil-setup script designed for U
 colorprintf orange "WARNING: This script will permenently delete all user content on this account! \n"
 read -n 1 -p "Continue? [y/N]" $proceed
 printf "\n"
-if [ "$proceed" != "Y" -o "$proceed" != "y" ]; then
+if [ "$proceed" != "Y" -a "$proceed" != "y" ]; then
 	exit 0;
 fi
 
