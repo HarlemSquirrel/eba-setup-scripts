@@ -99,7 +99,8 @@ set -o pipefail  	# trace ERR through pipes
 
 # Intro
 clear
-colorprintf cyan "Welcome to Kevin McCormack's eba-setup script designed for Ubuntu 12.04 or 14.04 running Unity or MATE! \n"
+colorprintf cyan "Welcome to Kevin McCormack's eba-setup script
+designed for Ubuntu 12.04 or 14.04 running Unity or MATE! \n"
 colorprintf cyan "Waking up the elves for $(hostname)
    Hardware: $model by $vendor
    BIOS Version: $bios_vers
