@@ -65,7 +65,7 @@ colorprintf cyan "Welcome to Kevin McCormack's pupil-setup script designed for U
 
 # Warn about permenently deleting all user content
 colorprintf orange "WARNING: This script will permenently delete all user content on this account! \n"
-read -n 1 -p "Continue? [y/N]" $proceed
+read -n 1 -p "Continue? [y/N]" proceed
 printf "\n"
 if [ "$proceed" = "y" -o "$proceed" = "Y" ]; then
 	colorprintf cyan "Waking up the elves to set up the pupil for $desktop_env...\n";
