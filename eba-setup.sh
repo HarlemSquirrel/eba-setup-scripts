@@ -84,7 +84,11 @@ else
 	colorprintf orange "The elves to not recognize this version off Ubuntu!\n";
 fi
 
-
+# packges to install
+packages=(bleachbit openssh-server oracle-java7-installer audacity mixxx
+  libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork
+  ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator
+  tlp tlp-rdw atom pavucontrol)
 
 # 	---- Command sequence starts here ----
 #   ---------------------------------------------------
@@ -317,7 +321,11 @@ colorprintf green "done.\n";
 
 # Install English and Spanish packages to complete language files and emoticons
 printf "The elves are installing language packages..."
-sudo -E apt -y -qq install ttf-ancient-fonts hyphen-en-us mythes-en-us firefox-locale-es gimp-help-es language-pack-es language-pack-gnome-es libreoffice-help-es libreoffice-l10n-es myspell-es wspanish;
+language_packages=(ttf-ancient-fonts hyphen-en-us mythes-en-us firefox-locale-es
+  gimp-help-es language-pack-es language-pack-gnome-es libreoffice-help-es
+  libreoffice-l10n-es myspell-es wspanish)
+#sudo -E apt -y -qq install ttf-ancient-fonts hyphen-en-us mythes-en-us firefox-locale-es gimp-help-es language-pack-es language-pack-gnome-es libreoffice-help-es libreoffice-l10n-es myspell-es wspanish;
+sudo -E apt install -y ${language_packages[*]}
 colorprintf green "done.\n";
 
 
@@ -337,7 +345,8 @@ colorprintf green "done.\n";
 
 # Install some software
 printf "The elves are installing more cool stuff..."
-sudo -E apt -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw atom;
+#sudo -E apt -qq install bleachbit openssh-server oracle-java7-installer audacity mixxx libportaudio2 vlc gimp musescore openshot openscad edubuntu-artwork ubuntu-edu-secondary ubuntu-restricted-extras python-appindicator tlp tlp-rdw atom;
+sudo -E apt install -y ${packages[*]}
 # install Edubuntu artwork if Unity
 if [ "$desktop_env" = "Unity" ]; then
 	printf "installing edubuntu-artwork..."
